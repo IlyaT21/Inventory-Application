@@ -9,12 +9,20 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/new", (req, res) => {
+app.get("/product/new", (req, res) => {
   res.render("products/new");
 });
 
-app.get("/edit", (req, res) => {
+app.get("/product/edit", (req, res) => {
   res.render("products/edit");
+});
+
+app.get("/category/new", (req, res) => {
+  res.render("categories/new");
+});
+
+app.get("/category/edit", (req, res) => {
+  res.render("categories/edit");
 });
 
 const PORT = process.env.PORT || 3000;
