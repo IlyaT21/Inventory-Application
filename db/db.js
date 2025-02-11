@@ -12,9 +12,25 @@ const pool = new Pool({
 // Test the connection
 pool
   .connect()
-  .then((client) => {
+  .then(async (client) => {
     console.log("Connected to PostgreSQL database!");
-    client.release(); // Release the client back to the pool
+
+    try {
+      // Insert 'Uncategorized' if it doesn't already exist
+      await client.query(`
+        INSERT INTO categories (name)
+        VALUES ('Uncategorized')
+        ON CONFLICT (name) DO NOTHING
+      `);
+
+      console.log(
+        "'Uncategorized' category inserted (if not already present)."
+      );
+    } catch (err) {
+      console.error("Error inserting category:", err.stack);
+    } finally {
+      client.release(); // Release the client back to the pool
+    }
   })
   .catch((err) => console.error("Connection error", err.stack));
 

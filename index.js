@@ -25,13 +25,5 @@ app.get("/category/edit", (req, res) => {
   res.render("categories/edit");
 });
 
-pool.query("SELECT 1", (err, res) => {
-  if (err) {
-    console.error("Database connection failed:", err.stack);
-  } else {
-    console.log("Database connection successful!");
-  }
-});
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Express app listening on port ${PORT}!`));
