@@ -1,6 +1,5 @@
 const { Pool } = require("pg");
 
-// PostgreSQL connection configuration
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
@@ -9,14 +8,13 @@ const pool = new Pool({
   port: 5432,
 });
 
-// Test the connection
 pool
   .connect()
   .then(async (client) => {
     console.log("Connected to PostgreSQL database!");
 
     try {
-      // Insert 'Uncategorized' if it doesn't already exist
+      // Insert 'Uncategorized'
       await client.query(`
         INSERT INTO categories (name)
         VALUES ('Uncategorized')
@@ -29,10 +27,9 @@ pool
     } catch (err) {
       console.error("Error inserting category:", err.stack);
     } finally {
-      client.release(); // Release the client back to the pool
+      client.release();
     }
   })
   .catch((err) => console.error("Connection error", err.stack));
 
-// Export the pool to use in other files
 module.exports = pool;

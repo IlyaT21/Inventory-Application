@@ -23,6 +23,29 @@
   </head>
   <body>
     <h1>Products</h1>
-    <div>Test</div>
+    <div>
+      <h3>Categories:</h3>
+      <% if (categories.length > 0) { %>
+      <ul>
+        <% categories.forEach(category => { %>
+        <li class="category"><%= category.name %></li>
+        <% }); %>
+      </ul>
+      <% } else { %>
+      <p>No categories available.</p>
+      <% } %>
+    </div>
+    <div>
+      <h3>Selected Products</h3>
+      <% if (products.length > 0) { %>
+      <ul>
+        <% products.forEach(product => { %>
+        <li class="product"><%= product.name %></li>
+        <% }); %>
+      </ul>
+      <% } else { %>
+      <p>No products found.</p>
+      <% } %>
+    </div>
   </body>
 </html>
