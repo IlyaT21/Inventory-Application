@@ -22,7 +22,12 @@
     </style>
   </head>
   <body>
-    <h1>Add cat</h1>
-    <div>Test</div>
+    <h1>Create New Category</h1>
+    <form action="/category" method="POST">
+      <label for="name">Category Name:</label>
+      <input type="text" name="name" id="name" required />
+      <button type="submit">Create Category</button>
+    </form>
+    <a href="/">Back</a>
   </body>
 </html>
