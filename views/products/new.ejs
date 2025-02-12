@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Product</title>
+    <title><%= product ? 'Edit Product' : 'Add Product' %></title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -22,23 +22,26 @@
     </style>
   </head>
   <body>
-    <h1>Create New Product</h1>
-    <form action="/product" method="POST">
-      <label for="name">Product Name:</label>
-      <input type="text" name="name" id="name" required />
+  <h1><%= product ? 'Edit Product' : 'Create New Product' %></h1>
 
-      <label for="price">Price:</label>
-      <input type="number" step="0.01" name="price" id="price" required />
+  <form action="<%= product ? '/product/' + product.id : '/product' %>" method="POST">
+    <label for="name">Product Name:</label>
+    <input type="text" name="name" id="name" required value="<%= product ? product.name : '' %>" />
 
-      <label for="category_id">Category:</label>
-      <select name="category_id" id="category_id">
-        <% categories.forEach(category => { %>
-        <option value="<%= category.id %>"><%= category.name %></option>
-        <% }); %>
-      </select>
+    <label for="price">Price:</label>
+    <input type="number" step="0.01" name="price" id="price" required value="<%= product ? product.price : '' %>" />
 
-      <button type="submit">Create Product</button>
-    </form>
+    <label for="category_id">Category (optional):</label>
+    <select name="category_id" id="category_id">
+      <% categories.forEach(category => { %>
+        <option value="<%= category.id %>" <%= product && product.category_id == category.id ? 'selected' : '' %>>
+          <%= category.name %>
+        </option>
+      <% }); %>
+    </select>
+
+    <button type="submit"><%= product ? 'Update Product' : 'Create Product' %></button>
+  </form>
     <a href="/">Back</a>
   </body>
 </html>
