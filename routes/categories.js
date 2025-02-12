@@ -64,7 +64,17 @@ router.post("/:id/delete", async (req, res) => {
     res.redirect("/");
   } catch (err) {
     console.error("Error deleting category:", err);
-    res.status(500).send("Error deleting category");
+
+    // Check if category is being refferenced in products table
+    if (err.message.includes("violates foreign key constraint")) {
+      res
+        .status(400)
+        .send(
+          "Cannot delete category: it is being used by a product. Delete those products first"
+        );
+    } else {
+      res.status(500).send("An error occurred while deleting the category.");
+    }
   }
 });
 
