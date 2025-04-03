@@ -3,9 +3,11 @@ const app = express();
 const pool = require("./db/db");
 const productRoutes = require("./routes/products");
 const categoryRoutes = require("./routes/categories");
+const path = require("path");
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", async (req, res) => {
   try {
